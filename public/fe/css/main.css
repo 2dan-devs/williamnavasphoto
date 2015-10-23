@@ -1,0 +1,386 @@
+@charset "UTF-8";
+
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 62.5%;
+  font-family: 'Muli', sans-serif;
+  color: #c0c0c0;
+  background-color: #202324;
+  background-image: url("../images/page-bg.png");
+  background-attachment: fixed;
+}
+
+a {
+    text-decoration: none;
+    color: #d7d7d7;
+}
+ul li a:hover {
+    color: #D94141;
+}
+ul {
+    margin-right: 20px;
+    font-size: 1.4em;
+}
+.logo {
+    margin-bottom: 60px;
+    margin-top: 60px;
+    text-align: right;
+    font-size: 3.6em;
+    margin-right: 20px;
+    font-family: 'Courgette', cursive;
+}
+.logo > img {
+    width: 100%;
+}
+
+#side-nav {
+    position: fixed;
+    width: 180px;
+    height: 100%;
+}
+/* ------------------------------- */
+#gallery-menu {
+    list-style-type: none;
+    margin-bottom: 12px;
+    text-align: right;
+    font-size: 1.6em;
+}
+#gallery-menu li {
+    margin-bottom: 12px;
+}
+/*--------------------------------*/
+#links-menu {
+    list-style-type: none;
+    margin-top: 40px;
+    text-align: right;
+    margin-bottom: 100px;
+    font-size: 1.6em;
+}
+
+#links-menu li {
+    margin-bottom: 12px;
+}
+/* ------------------------------- */
+#footer {
+    z-index: 5;
+    position: fixed;
+    bottom: 4px;
+    right: 8px;
+    text-shadow: 2px 2px 2px #2c2c2c;
+    font-size: 1.3em;
+}
+.social-icons {
+    list-style-type: none;
+    width: 100%;
+    text-align: center;
+}
+.social-icons li {
+    display: inline;
+    margin-left: 16px;
+}
+/* MAIN VIEW STYLES =================================== */
+#main-view {
+    margin-left: 201px;
+    margin-top:  10px;
+    margin-right: 30px;
+    max-width: 1264px;
+}
+#main-view #img-container {
+    /* Prevent vertical gaps */
+    /*line-height: 0;*/
+    -webkit-column-count: 4;
+    -webkit-column-gap:   8px;
+    -moz-column-count:    4;
+    -moz-column-gap:      8px;
+    column-count:         4;
+    column-gap:           8px;
+}
+
+#main-view #img-container div {
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+#main-view #img-container div img {
+    width: 100% !important;
+    height: auto !important;
+    cursor: pointer;
+}
+/* Animation Opacity when Image is Hovered */
+#main-view #img-container div img {
+    -webkit-transition: 0.1s linear all; /* Chrome */
+	transition: 0.1s linear all;
+    opacity: 1;
+}
+#main-view #img-container div img:hover {
+    opacity: 0.4;
+}
+/* End Animation Opacity when Image is Hovered */
+
+/* ############# Photos Media Queries */
+@media only screen and (max-width: 1100px) {
+    #main-view #img-container {
+        -moz-column-count:    4;
+        -webkit-column-count: 4;
+        column-count:         4;
+    }
+}
+@media only screen and (min-width: 801px) and (max-width: 1100px) {
+    #main-view #img-container {
+        -moz-column-count:    3;
+        -webkit-column-count: 3;
+        column-count:         3;
+    }
+}
+@media only screen and (min-width: 641px) and (max-width: 800px) {
+    #main-view #img-container {
+        -moz-column-count:    2;
+        -webkit-column-count: 2;
+        column-count:         2;
+    }
+}
+@media only screen and (max-width: 640px) {
+    #main-view #img-container {
+        -moz-column-count:    1;
+        -webkit-column-count: 1;
+        column-count:         1;
+    }
+    .social-icons {
+        visibility: hidden;
+    }
+    #side-nav {
+        position: relative;
+        width: 100%;
+        font-size: 1em;
+    }
+    .logo {
+        text-align: center;
+        font-size: 3em;
+        text-decoration: underline;
+        margin: 10px;
+    }
+    #links-menu {
+        text-align: center;
+        margin-bottom: 0;
+        margin-right: 0;
+        margin-top: 20px;
+    }
+    #gallery-menu {
+        text-align: center;
+        margin-right: 0;
+    }
+    #main-view {
+        margin-left: 30px;
+        clear: both;
+    }
+    #footer {
+        position: relative;
+        text-align: center;
+        margin-top: 40px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .about-social-icons {
+        text-align: center !important;
+        margin-top: 30px;
+    }
+    .about-social-icons li:not(:first-child) {
+	margin-left: 26px;
+    }
+    .contact-wrapper,
+    .about-wrapper {
+    	width: 100% !important;
+    }
+    #frame > img {
+      max-width: 99% !important;
+      max-height: 99% !important;
+   }
+   .thankyou {
+   	margin-top: 60px !important;
+   	margin-bottom: 60px !important;
+   }
+   .slideshow-nav-left,
+   .slideshow-nav-right {
+      visibility: hidden;
+   }
+   label {
+   	font-size: 1.5em !important;
+   }
+}
+
+/* ############# END Photos Media Queries */
+
+
+/* -------------- Animations for NG-Animate ----------------- */
+.img-wrap.ng-enter {
+	-webkit-transition: 0.3s linear all; /* Chrome */
+	transition: 0.3s linear all;
+	opacity: 0;
+}
+.img-wrap.ng-enter-stagger {
+    transition-delay: 0.1s;
+}
+.img-wrap.ng-enter-active {
+	opacity: 1;
+}
+/* -------------- End Animations for NG-Animate -------------  */
+
+
+/* Spinner Position */
+.spinner {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+}
+
+/* Active Gallery Selected */
+.active {
+    color: #D94141;
+}
+
+/* Picture Frame *********************/
+#frame {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    transform:translate(-50%,-50%);
+    -ms-transform:translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+}
+#frame img {
+    position: fixed;
+    max-width: 900px;
+    max-height: 900px;
+    top: 50%;
+    left: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    transform:translate(-50%,-50%);
+    -ms-transform:translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+}
+.slideshow-nav-right,
+.slideshow-nav-left {
+    position: fixed;
+    z-index: 10;
+    cursor: pointer;
+    top: 50%;
+    transform:translate(-50%,-50%);
+    -ms-transform:translate(-50%,-50%);
+    -webkit-transform:translate(-50%,-50%);
+}
+.slideshow-nav-left {
+    left: 14%;
+}
+.slideshow-nav-right {
+    right: 12%;
+}
+/* End Picture Frame *****************/
+
+
+/* ***************** CSS for ABOUT template *****************/
+.about-body {
+    white-space: pre-wrap;
+    font-size: 1.6em;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.about-social-icons {
+    list-style-type: none;
+    width: 100%;
+    text-align: right;
+}
+.about-social-icons li {
+    display: inline;
+}
+.about-social-icons li:not(:first-child) {
+	margin-left: 26px;
+}
+.about-wrapper {
+    width: 70%;
+    padding-top: 6%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.about-body > img {
+    float: left;
+    margin-right: 14px;
+    margin-bottom: 14px;
+}
+.about-title {
+    font-size: 2.4em;
+    text-align: center;
+    margin-bottom: 40px;
+    text-decoration: underline;
+}
+.contact-info {
+    margin-top: 16px;
+    font-size: 1.4em;
+    font-style: italic;
+}
+/* *************** End CSS for ABOUT template **************/
+
+
+/* *************** CSS for CONTACT template **************/
+.contact-wrapper {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 6%;
+}
+.contact-wrapper input[type="text"], input[type="email"] {
+    padding: 6px;
+    font-size: 1.2em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1D202C;
+}
+.contact-message textarea {
+    padding: 6px;
+    font-size: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1D202C;
+}
+.contact-title {
+    font-size: 2.4em;
+    text-align: center;
+    margin-bottom: 50px;
+    text-decoration: underline;
+}
+label {
+    font-size: 1.6em;
+    color: #c0c0c0;
+}
+div .contact-method {
+    float: left;
+}
+div .contact-time {
+    float: right;
+}
+.contact-message,
+input[type="submit"] {
+    clear: both;
+}
+.form-error {
+    font-size: 0.8em;
+    color: orange;
+}
+.thankyou {
+    font-size: 2.5em;
+    margin-top: 120px;
+    color: lightblue;
+    text-align: center;
+}
+.contact-info {
+	margin-top: 30px;
+}
+/* *************** End CSS for CONTACT template **************/

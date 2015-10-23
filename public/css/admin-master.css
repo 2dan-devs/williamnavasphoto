@@ -1,0 +1,36 @@
+.top-banner{
+	background-color: #474747;
+	height: 75px;
+}
+
+.top-banner-text1{
+	color: #F0F0F0;
+	padding-top: 15px;
+	margin: 0px;
+	text-align: center;
+	padding-bottom: 0px;
+
+}
+
+.top-banner-text2{
+	color: #F0F0F0;
+	text-align: center;
+	padding-top: 0px;
+	margin: 0px;
+	font-size: 125%;
+	padding-bottom: 10px;
+	padding-top: 0px;
+}
+
+.view-title {
+	color: #4A4A4A;
+	text-align: center;
+}
+
+body {
+	background-color: #EAEAEA;
+}
+
+#footer{
+	text-align: center;
+}

@@ -1,0 +1,48 @@
+.selected {
+	border: 10px solid LawnGreen;
+}
+
+h1{
+	color: #E47911;
+	text-align: center;
+}
+.row{
+	max-width: 73%;
+}
+
+.photo-container{
+	margin-top: 15px;
+    padding-bottom: 10px;
+    height:220px;
+}
+.button-container{
+	text-align: right;
+}
+img{
+	display: block;
+	max-width:100%;
+	max-height:100%;
+	margin-left: auto;
+    margin-right: auto;
+}
+#results_box div:hover span{
+	display:block;
+}
+#results_box div span{ 
+	display:none; 
+	background-image:url(zoom_in.png); 
+	background-repeat:no-repeat; 
+	width:48px; 
+	height:48px; 
+	position:absolute; 
+	left:30px; 
+	top:15px;
+}
+
+.photo-counter{
+	float:right;
+	color: #E47911;
+}
+ul{
+	list-style-type: none;
+}

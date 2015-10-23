@@ -1,0 +1,58 @@
+<form id="wnpform" name="contactform" class="contact-wrapper" ng-submit="submitForm()">
+	<p class="contact-title">Contact Me</p>
+
+   <label for="name">Name: 
+   	      <span class="form-error" ng-show="contactform.name.$error.pattern">
+         Name cannot contain numbers. Minimun length is 4 characters.</span>
+   
+      <input type="text" name="name" placeholder="enter full name" ng-model="formData.name"
+      ng-pattern="/^[a-zA-Z ]{4,30}$/" novalidate required>
+
+   </label>
+
+   <label for="email">E-mail: 
+   	<span class="form-error" ng-show="contactform.email.$error.email">
+         Email format must be, yourname@example.com</span>
+   
+      <input type="email" name="email" placeholder="enter email" ng-model="formData.email" required>
+      
+   </label>
+
+   <label for="phone">Phone: 
+   	      <span class="form-error" ng-show="contactform.phone.$error.pattern">
+         Invalid phone number.</span>
+   
+      <input type="text" name="phone" placeholder="enter phone number" ng-model="formData.phone"
+      ng-pattern="/^\b\d{3}[-.]?\d{3}[-.]?\d{4}\b$/" required>
+
+   </label>
+
+   <div>
+      <span class="contact-method">
+         <label>Best contact method:</label>
+         <input type="radio" name="contactMethod" value="email" ng-model="formData.contactMethod">
+         <label>E-mail</label>
+         <input type="radio" name="contactMethod" value="phone" ng-model="formData.contactMethod">
+         <label>Phone</label>
+      </span>
+      <span class="contact-time">
+         <label>Best time to contact:</label>
+         <input type="checkbox" ng-model="formData.morning" ng-true-value="'yes'" ng-false-value="'no'">
+         <label>Morning</label>
+         <input type="checkbox" ng-model="formData.afternoon" ng-true-value="'yes'" ng-false-value="'no'">
+         <label>Afternoon</label>
+         <input type="checkbox" ng-model="formData.night" ng-true-value="'yes'" ng-false-value="'no'">
+         <label>Night</label>
+      </span>
+   </div>
+
+   <div class="contact-message">
+      <label for="name">Message: 
+      <span class="form-error" ng-show="contactform.message.$error.minlength">
+         Message must be at least 30 characters.</span>
+      </label>
+      <textarea name="message" cols="30" rows="10" placeholder="enter message"ng-model="formData.message"
+      ng-minlength="30" required></textarea>
+      <input type="submit" value="Send message" class="button alert radius" ng-disabled="contactform.$invalid">
+   </div>
+</form>

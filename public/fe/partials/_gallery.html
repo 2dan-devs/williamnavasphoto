@@ -1,0 +1,11 @@
+<i class="fa fa-5x fa-spinner fa-pulse spinner" data-loading></i>
+<div id="gallery-container">
+	<div id="img-container">
+		<!-- Portfolio photos -->
+		<div class="img-wrap" ng-repeat="photo in albumPhotos">
+			<img ng-src="{{photo.photo_path}}" alt="portfolio photo" dn-image-zoom index="{{$index}}">
+		</div>
+	</div>
+	<i class="slideshow-nav-left fa fa-3x fa-chevron-left" ng-click="prevSlide()"></i>
+	<i class="slideshow-nav-right fa fa-3x fa-chevron-right" ng-click="nextSlide()"></i>
+</div>

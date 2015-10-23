@@ -1,0 +1,32 @@
+h3 {
+	color: #E47911;
+	text-align: center;
+}
+
+.welcome-message
+{
+	color: #E47911;
+	text-align: left;
+	font-weight: bold;
+}
+.album-title
+{
+	text-align: center;
+	font-size: 1.875em;
+	font-family: Arial,Verdana,"Helvetica Neue",Helvetica,sans-serif;
+}
+
+.button {
+	background-color: #917644;
+
+}
+.button:hover{
+	background-color: #D2972B;
+}
+
+.album-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    height: 400px;
+  }

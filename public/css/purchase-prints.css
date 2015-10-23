@@ -1,0 +1,85 @@
+.row{
+	max-width: 73%;
+}
+.fa {
+	opacity: 0.5;
+	cursor: pointer;
+}
+.photo-container{
+	margin-top: 15px;
+    padding-bottom: 10px;
+}
+
+.button-container{
+	text-align: right;
+}
+
+#results_box div div:hover > span{
+	display:block;
+}
+#results_box div div span{ 
+	display:none; 
+	background-image:url(zoom_in.png); 
+	background-repeat:no-repeat; 
+	width:48px; 
+	height:48px; 
+	position:absolute; 
+	left:30px; 
+	top:15px;
+}
+.arrow-container{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+}
+
+.arrow-container:hover{
+	background-color: rgba(172, 159, 153, 0.57);
+}
+
+.up-arrow{
+	width: 100%;
+	height: 100%;
+}
+
+.down-arrow{
+	width: 100%;
+	height: 100%;
+}
+
+.picture-quantity-container{
+	padding: 0px 0px 0px 0px;
+
+}
+.picture-quantity{
+	text-align: center;
+}
+
+.picture-format{
+	padding-right: 0px;
+	width: 100%;
+}
+
+.add-container{
+	padding: 0px 0px 0px 0px;	
+}
+
+.add-button:hover{
+	background-color: rgba(172, 159, 153, 0.57);
+}
+
+.delete-container{
+	padding: 0px 0px 0px 0px;	
+}
+
+.delete-button:hover{
+	background-color: rgba(172, 159, 153, 0.57);
+}
+
+img{
+	display: block;
+	max-width:100%;
+	max-height:100%;
+	margin-left: auto;
+    margin-right: auto;
+}

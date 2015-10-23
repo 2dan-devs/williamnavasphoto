@@ -1,0 +1,25 @@
+{
+  "name": "2dan",
+  "version": "0.1.0",
+  "authors": [
+    "dnavas <dani.gnavas@gmail.com>"
+  ],
+  "description": "Professional photographer site",
+  "keywords": [
+    "photo"
+  ],
+  "license": "mit",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "foundation": "zurb/bower-foundation#~5.5.1",
+    "jquery-ui": "~1.11.3"
+  }
+}

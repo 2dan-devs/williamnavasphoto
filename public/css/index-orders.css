@@ -1,0 +1,19 @@
+.pending-order-container{
+	height: 300px;
+	overflow: scroll;
+	width: 750px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nonpending-order-container{
+	height: 300px;
+	overflow: scroll;
+	width: 750px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.table-name{
+	text-align: center;
+}
