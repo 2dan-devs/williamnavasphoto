@@ -29,6 +29,7 @@ class PurchaseAlbumController extends Controller {
 											 ->with('last',$last)
 											 ->with('itemsPerPage',12)
 											 ->with('albumID',$id)
-											 ->with('maxPhotos',$album->photo_selection_max);
+											 ->with('maxPhotos',$album->photo_selection_max)
+											 ->with('orderID','');
 	}
 }

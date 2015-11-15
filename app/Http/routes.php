@@ -22,6 +22,7 @@ Route::post('frontendapi/getPortfolioAlbumPhotos','FrontEndController@getPortfol
 Route::post('frontendapi/getContact','FrontEndController@getContact');
 Route::post('frontendapi/getAbout','FrontEndController@getAbout');
 Route::post('frontendapi/post_message','FrontEndController@postMessage');
+Route::post('frontendapi/getAllFormats','FrontEndController@getAllFormats');
 
 Route::group(['middleware' => 'auth'], function(){
 	Route::group(['middleware' => 'adminonly'], function(){
@@ -53,15 +54,15 @@ Route::group(['middleware' => 'auth'], function(){
 											->with('client',$client);
 		});
 		Route::post('get/album_photos','ClientAlbumsController@getAlbumPhotos');
+		Route::post('load/ordered_album','ClientAlbumsController@loadOrderedAlbum');
+		Route::post('load/ordered_prints','ClientAlbumsController@loadOrderedPrints');
 		Route::resource('user/dashboard/purchase_album', 'PurchaseAlbumController');
 		Route::resource('user/dashboard/purchase_prints', 'PurchasePrintsController');
 		Route::resource('user/dashboard/orders_history', 'ClientOrdersController');
 		Route::get('user/dashboard/orders_history/{id}/cancel','ClientOrdersController@cancel');
 		Route::post('submit/album_purchase','SubmitController@albumPurchase');
 		Route::post('submit/prints_purchase','SubmitController@printsPurchase');
-		Route::post('submit/edit_album_purchase','SubmitController@editAlbumPurchase');
-		Route::post('submit/edit_prints_purchase','SubmitController@editPrintsPurchase');
 	});
-	
-	
+
+
 });

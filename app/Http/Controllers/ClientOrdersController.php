@@ -24,7 +24,7 @@ class ClientOrdersController extends Controller {
 		$user = \Auth::user();
 		$client = $user->client;
 		$allOrders = Order::where('client_id','=',$client->id)->orderBy('created_at','DESC')->get();
-		
+
 		return view('clients.orders')->with('allOrders',$allOrders);
 	}
 
@@ -43,28 +43,20 @@ class ClientOrdersController extends Controller {
 		$last = ceil($total/$itemsPerPage);
 		if(strcmp($order->type, 'Prints Order') == 0)
 		{
-			$selections = $order->printsSelections;
-			$formats = PhotoFormat::all();
-			return View('clients.edit_purchase_prints')->with('title',$album->album_name)
+			return View('clients.purchase_prints')->with('title',$album->album_name)
 												 ->with('albumID',$album->id)
 												 ->with('last',$last)
 												 ->with('itemsPerPage',12)
-												 ->with('orderID',$order->id)
-												 ->with('photoFormats',$formats)
-												 ->with('selections',$selections);
-		} 
+												 ->with('orderID',$id);
+		}
 		else //is an album order
 		{
-			$photosSelected = $order->albumSelections;
-			$amtSelected = $photosSelected->count();
-			return View('clients.edit_album_order')->with('title',$album->album_name)
+			return View('clients.purchase_album')->with('title',$album->album_name)
 											 ->with('albumID',$album->id)
 											 ->with('last',$last)
 											 ->with('itemsPerPage',12)
 											 ->with('orderID',$order->id)
-											 ->with('maxPhotos',$album->photo_selection_max)
-											 ->with('amtSelected',$amtSelected)
-											 ->with('photosSelected',$photosSelected);
+											 ->with('maxPhotos',$album->photo_selection_max);
 		}
 	}
 
@@ -76,7 +68,7 @@ class ClientOrdersController extends Controller {
 		$order = Order::find($id);
 		$order->status = 'Canceled';
 		$order->save();
-		
+
 		return redirect('/user/dashboard/orders_history');
 	}
 

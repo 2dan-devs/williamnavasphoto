@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
 use App\ClientAlbum;
 use App\Client;
+use App\Order;
 Use App\ClientAlbumPhoto;
 use Illuminate\Http\Request;
 use App\Commands\DeleteFolderFileCommand;
@@ -45,19 +46,19 @@ class ClientAlbumsController extends Controller {
 		$image = Image::make($cover_photo->getRealPath());
 
 		//resize and save file to server
-		$image->resize(null, 600, 
-				function ($constraint) 
+		$image->resize(null, 600,
+				function ($constraint)
 				{
 					$constraint->aspectRatio();
 					$constraint->upsize();
 				})->save($path,90);  //save new photo
 
 		$client_album->album_cover_photo = 'assets/images/album_cover_photo/'.$filename;
-		
+
 		$client_album->album_name = $request->album_name;
 		$client_album->client_id = $request->client_id;
 		$client_album->photo_selection_max = $request->photo_selection_max;
-		$client_album->save();	
+		$client_album->save();
 
 		mkdir(public_path("assets/images/client_albums/".$client_album->id."/high_res"),0777,true);
 		mkdir(public_path("assets/images/client_albums/".$client_album->id."/low_res"),0777,true);
@@ -110,7 +111,7 @@ class ClientAlbumsController extends Controller {
 		}
 	}
 
-	
+
 
 
 	public function deleteAlbumPhoto($id)
@@ -144,6 +145,18 @@ class ClientAlbumsController extends Controller {
 												->take($itemsPerPage)->get();
 
 		return response()->json($photos);
+	}
+
+	public function loadOrderedAlbum(Request $request)
+	{
+		$order = Order::find($request->orderID);
+		return response()->json($order->albumSelections);
+	}
+
+	public function loadOrderedprints(Request $request)
+	{
+		$order = Order::find($request->orderID);
+		return response()->json($order->printsSelections);
 	}
 
 }

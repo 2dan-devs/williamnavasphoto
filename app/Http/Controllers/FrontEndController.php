@@ -11,6 +11,7 @@ use App\About;
 use \Illuminate\Support\Facades\DB;
 use Config;
 use Mail;
+use App\PhotoFormat;
 
 class FrontEndController extends Controller {
 
@@ -46,6 +47,11 @@ class FrontEndController extends Controller {
 	public function getAbout()
 	{
 		return response()->json(About::find(1));
+	}
+
+	public function getAllFormats()
+	{
+		return response()->json(PhotoFormat::all());
 	}
 
 	public function postMessage(Request $request)

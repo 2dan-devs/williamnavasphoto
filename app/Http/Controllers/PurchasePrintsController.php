@@ -13,7 +13,7 @@ class PurchasePrintsController extends Controller {
     {
         $this->middleware('albumprivacy');
     }
-	
+
 	/**
 	 * Display the specified resource.
 	 *
@@ -31,6 +31,7 @@ class PurchasePrintsController extends Controller {
 											 ->with('albumID',$id)
 											 ->with('last',$last)
 											 ->with('itemsPerPage',12)
-											 ->with('photo_formats',$formats);
+											 ->with('photo_formats',$formats)
+											 ->with('orderID','');
 	}
 }

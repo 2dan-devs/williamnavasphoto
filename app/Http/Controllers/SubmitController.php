@@ -31,13 +31,13 @@ class SubmitController extends Controller {
 			$filename = time()."-". $image->getClientOriginalName();
 			$lowPath = public_path('assets/images/client_albums/'.$client_album_id.'/low_res/'.$filename);
 			$highPath = public_path('assets/images/client_albums/'.$client_album_id.'/high_res/'.$filename);
-			
+
 			//open image file
 			$photo = Image::make($image->getRealPath());
 
 			$photo->save($highPath,100);  //save high resolution photo
-			$photo->resize(null, 600, 
-					function ($constraint) 
+			$photo->resize(null, 600,
+					function ($constraint)
 					{
 						$constraint->aspectRatio();
 						$constraint->upsize();
@@ -63,7 +63,7 @@ class SubmitController extends Controller {
 			$photo = Image::make($image->getRealPath());
 
 			$photo->save($path,100);  //save high resolution photo
-			
+
 			$portfolioPhoto = new PortfolioAlbumPhoto();
 			$portfolioPhoto->photo_path = 'assets/images/portfolio_albums/'.$portfolio_album_id.'/'.$filename;
 			$portfolioPhoto->portfolio_album_id = $portfolio_album_id;
@@ -75,17 +75,34 @@ class SubmitController extends Controller {
 	{
 		$photos = $request->photos;
 		$albumID = $request->album_id;
-		$album = ClientAlbum::find($albumID);
-		$client = $album->client;
+		$orderID = $request->order_id;
+		$user = \Auth::user();
+		$client = $user->client;
 		$clientName = $client->first_name." ". $client->last_name;
-		
-		//create album order in database
-		$order = new Order();
-		$order->client_album_id = $albumID;
-		$order->client_id = $client->id;
-		$order->status = "In Progress";
-		$order->type = "Album Order";
-		$order->save();
+		$album = ClientAlbum::find($albumID);
+
+		if($orderID != '')
+		{
+			$order = Order::find($orderID);
+			DB::table('client_album_selections')->where('album_order_id','=',$orderID)->delete();
+			Session::flash('message', FlashMessage::DisplayAlert('Your album purchase was saved!', 'success'));
+		}
+		else
+		{
+			$order = new Order();
+			$order->client_album_id = $albumID;
+			$order->client_id = $client->id;
+			$order->status = "In Progress";
+			$order->type = "Album Order";
+			$order->save();
+			Session::flash('message', FlashMessage::DisplayAlert('Your album purchase was successful!', 'success'));
+
+			//send email confirmation to customer
+			Mail::send('emails.order_confirmation',[],function($message) use($client,$clientName)
+			{
+				$message->to($client->email,$clientName)->subject('Album Order Received');
+			});
+		}
 
 		//save all photos in album purchase to database
 		foreach ($photos as $photo)
@@ -96,17 +113,12 @@ class SubmitController extends Controller {
 			$selectedPhoto->save();
 		}
 
-		//send email confirmation to customer and admin
-		Mail::send('emails.order_confirmation',[],function($message) use($client,$clientName)
-		{
-			$message->to($client->email,$clientName)->subject('Album Order Received');
-		});
 
+		//send email to notify admin
 		Mail::send('emails.admin_order_notification',[],function($message)
 		{
 			$message->to(Config::get('constants.site.OWNEREMAIL'),Config::get('constants.site.OWNERNAME'))->subject('Album Order Received');
 		});
-		Session::flash('message', FlashMessage::DisplayAlert('Your album purchase was successful!', 'success'));
 	}//end album purchase
 
 	public function editAlbumPurchase(Request $request)
@@ -150,14 +162,31 @@ class SubmitController extends Controller {
 		$album = ClientAlbum::find($albumID);
 		$client = $album->client;
 		$clientName = $client->first_name." ". $client->last_name;
+		$orderID = $request->order_id
+		;
+		if($orderID != '')
+		{
+			$order = Order::find($orderID);
+			DB::table('client_prints_selections')->where('print_order_id','=',$orderID)->delete();
+			Session::flash('message', FlashMessage::DisplayAlert('Your prints purchase was saved!', 'success'));
+		}
+		else
+		{
+			//create prints order in database
+			$order = new Order();
+			$order->client_album_id = $albumID;
+			$order->client_id = $client->id;
+			$order->status = "In Progress";
+			$order->type = "Prints Order";
+			$order->save();
+			Session::flash('message', FlashMessage::DisplayAlert('Your prints purchase was successful!', 'success'));
 
-		//create prints order in database
-		$order = new Order();
-		$order->client_album_id = $albumID;
-		$order->client_id = $client->id;
-		$order->status = "In Progress";
-		$order->type = "Prints Order";
-		$order->save();
+			Mail::send('emails.order_confirmation',[],function($message) use($client,$clientName)
+			{
+				$message->to($client->email,$clientName)->subject('Prints Order Received');
+			});
+
+		}
 
 		foreach ($photos as $photo)
 		{
@@ -169,49 +198,9 @@ class SubmitController extends Controller {
 			$selectedPhoto->save();
 		}
 
-		//send email confirmation to customer and admin
-		Mail::send('emails.order_confirmation',[],function($message) use($client,$clientName)
-		{
-			$message->to($client->email,$clientName)->subject('Prints Order Received');
-		});
-
 		Mail::send('emails.admin_order_notification',[],function($message)
 		{
 			$message->to(Config::get('constants.site.OWNEREMAIL'),Config::get('constants.site.OWNERNAME'))->subject('Prints Order Received');
 		});
-		Session::flash('message', FlashMessage::DisplayAlert('Your prints purchase was successful!', 'success'));
 	}//end printsPurchase
-
-	public function editPrintsPurchase(Request $request)
-	{
-		$photos = $request->photos;
-		$user = \Auth::user();
-		$client = $user->client;
-		$clientName = $client->first_name." ". $client->last_name;
-		$orderID = $request->orderID;
-
-		DB::table('client_prints_selections')->where('print_order_id','=',$orderID)->delete();
-
-		foreach ($photos as $photo)
-		{
-			$selectedPhoto = new ClientPrintsSelection();
-			$selectedPhoto->print_order_id = $orderID;
-			$selectedPhoto->client_album_photo_id = $photo["photo_id"];
-			$selectedPhoto->format_id = $photo["format_id"];
-			$selectedPhoto->quantity = $photo["quantity"];
-			$selectedPhoto->save();
-		}
-
-		//send email confirmation to customer and admin
-		Mail::send('emails.order_confirmation',[],function($message) use($client,$clientName)
-		{
-			$message->to($client->email,$clientName)->subject('Prints Order Received');
-		});
-
-		Mail::send('emails.admin_order_notification',[],function($message)
-		{
-			$message->to(Config::get('constants.site.OWNEREMAIL'),Config::get('constants.site.OWNERNAME'))->subject('Prints Order Received');
-		});
-		Session::flash('message', FlashMessage::DisplayAlert('Your prints purchase was saved!', 'success'));
-	}//end edit printsPurchase
 }
